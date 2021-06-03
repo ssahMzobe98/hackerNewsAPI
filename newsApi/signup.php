@@ -10,9 +10,9 @@ $a=0;
 	//i could have created my own encyphering method.
 	$_11="select username from user where username=? Limit 1";
 	$stmt = $conn->prepare($_11);
-	$stmt->bind_param("s", $_,);
+	$stmt->bind_param("s", $_11);
 	$stmt->execute();
-	$stmt->bind_result($_);
+	$stmt->bind_result($_11);
 	$stmt->store_result();
 	$rnum = $stmt->num_rows;
 	if($rnum==1){
