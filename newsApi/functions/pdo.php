@@ -264,7 +264,7 @@ class mzobeNewsApi{
 	}
 	public function getUser($id){
 		global $conn;
-		$_=mysqli_fetch_array($conn->query("select*from user where username='$id'"));
+		$_=mysqli_fetch_array($conn->query("select*from user where username='$id' ORDER BY time_attempt DESC "));
 		?>
 		<div class="info">
 			<h4>Name : <?php echo $_['firstname']." ".$_['lastname'];?></h4>
