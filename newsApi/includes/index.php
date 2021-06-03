@@ -1,5 +1,6 @@
 <?php
 if(isset($_SESSION['id'])){
+	$map=new mzobeNewsApi();
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,32 +45,37 @@ if(isset($_SESSION['id'])){
 		</div>
 		<div class="nav3 right" style="<?php if(isset($_GET['nav']) && $_GET['nav']=="top_stories"){echo "background-color: navy;border: 1px solid #f3f3f3;";}?>">
 			<a href="./?nav=top_stories">
-				<div class="nav"><h6 style="color:#f3f3f3;"><i  class="fa fa-newspaper-o" style="font-size:13px;float:left;color:#f3f3f3;" aria-hidden="true"></i>Top Stories</h6></div>
+				<div class="nav"><h6 style="color:#f3f3f3;">Top Stories</h6></div>
 			</a>
 		</div>
 		<div class="nav3 right" style="<?php if(!isset($_GET['nav'])){echo "background-color: navy;border: 1px solid #f3f3f3;";}?>" >
 			<a href="./">
-				<div class="nav"><h6 style="color:#f3f3f3;"><i  class="fa fa-newspaper-o" style="font-size:13px;float:left;color:#f3f3f3;" aria-hidden="true"></i>Today's News</h6></div>
+				<div class="nav"><h6 style="color:#f3f3f3;">Today's News</h6></div>
 			</a>
 		</div>
 		<div class="nav1 right" style="<?php if(isset($_GET['nav']) && $_GET['nav']=="yesterday"){echo "background-color: navy;border: 1px solid #f3f3f3;";}?>">
 			<a href="./?nav=yesterday">
-				<div class="nav"><h6 style="color:#f3f3f3;"><i  class="fa fa-newspaper-o" style="font-size:13px;float:left;color:#f3f3f3;" aria-hidden="true"></i>yesterday</h6></div>
+				<div class="nav"><h6 style="color:#f3f3f3;">yesterday</h6></div>
 			</a>
 		</div>
 		<div class="nav1 right" style="<?php if(isset($_GET['nav']) && $_GET['nav']=="2_days_ago"){echo "background-color: navy;border: 1px solid #f3f3f3;";}?>">
 			<a href="./?nav=2_days_ago">
-				<div class="nav"><h6 style="color:#f3f3f3;"><i  class="fa fa-newspaper-o" style="font-size:13px;float:left;color:#f3f3f3;" aria-hidden="true"></i>2 days ago</h6></div>
+				<div class="nav"><h6 style="color:#f3f3f3;"></i>2 days ago</h6></div>
 			</a>
 		</div>
 		<div class="nav1 right" style="<?php if(isset($_GET['nav']) && $_GET['nav']=="3_days_ago"){echo "background-color: navy;border: 1px solid #f3f3f3;";}?>">
 			<a href="./?nav=3_days_ago">
-				<div class="nav"><h6 style="color:#f3f3f3;"><i  class="fa fa-newspaper-o" style="font-size:13px;float:left;color:#f3f3f3;" aria-hidden="true"></i>+3 days ago</h6></div>
+				<div class="nav"><h6 style="color:#f3f3f3;">+3 days ago</h6></div>
+			</a>
+		</div>
+		<div class="nav1 right">
+			<a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+				<div class="nav"><h6 style="color:#f3f3f3;"></i>About Me</h6></div>
 			</a>
 		</div>
 		<div class="nav1 right">
 			<a href="../functions/exit.php">
-				<div class="nav"><h6 style="color:#f3f3f3;"><i  class="fa fa-exit-o" style="font-size:13px;float:left;color:#f3f3f3;" aria-hidden="true"></i>Logout</h6></div>
+				<div class="nav"><h6 style="color:#f3f3f3;">Logout</h6></div>
 			</a>
 		</div>
 		
@@ -86,6 +92,47 @@ if(isset($_SESSION['id'])){
 		},100);
 	});
 </script>
+<style>
+	.modal{
+		align-content: left;
+		justify-content: left;
+		text-align: left;
+	}
+	.modal .modal-dialog{
+		align-content: left;
+		justify-content: left;
+		text-align: left;
+	}
+	.modal .modal-dialog .modal-content{
+		align-content: left;
+		justify-content: left;
+		text-align: left;
+	}
+	.attemptHistory{
+		height: 20vh;
+		overflow-y: auto;
+		color: navy;
+	}
+	
+</style>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h4 class="modal-title"><center><h3>About</h3></center> <?php $map->getUser($_SESSION['id']);?></h4>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 <?php
 }
 else{

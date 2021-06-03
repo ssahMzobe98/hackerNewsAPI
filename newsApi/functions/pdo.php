@@ -262,6 +262,52 @@ class mzobeNewsApi{
 		return $n;
 		
 	}
+	public function getUser($id){
+		global $conn;
+		$_=mysqli_fetch_array($conn->query("select*from user where username='$id'"));
+		?>
+		<div class="info">
+			<h4>Name : <?php echo $_['firstname']." ".$_['lastname'];?></h4>
+			<h4>username : <?php echo $_['username'];?></h4>
+			<h4>Registered At : <?php echo $_['time_reg'];?></h4>
+			<h4><?php echo "Loggedin : ";if($_['isloggedin']==1){echo"YES";}else{echo "NO";}?></h4>
+			<h4><?php $_1=mysqli_fetch_array($conn->query("select count(case when status=1 then 1 else NULL end) from loginattempt where username='$id'"));
+				echo "SuccessFull Login Attempts : ".$_1["count(case when status=1 then 1 else NULL end)"];;
+			?></h4>
+			<h4><?php $_1=mysqli_fetch_array($conn->query("select count(case when status=-1 then 1 else NULL end) from loginattempt where username='$id'"));
+				echo "Failed Login Attempts : ".$_1["count(case when status=-1 then 1 else NULL end)"];;
+			?></h4>
+		</div>
+		<center><h2>Login Attempt History</h2></center>
+		<div class="attemptHistory">
+			<div class="container">
+			  <h2>Attempts Table</h2>        
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Attempt Time</th>
+			        <th>Status</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			<?php
+			$_2=$conn->query("select*from loginattempt where username='$id'");
+			while($row=mysqli_fetch_array($_2)){
+				?>
+				<tr>
+			        <td><?php echo $row['time_attempt']?></td>
+			        <td><?php if($row['status']==1){echo"SuccessFull!!";}else{echo"Failed!!";}?></td>
+			      </tr>
+				<?php
+			}
+			?>
+				</tbody>
+			  </table>
+			</div>
+		</div>
+		<?php
+	}
+	
 	private function getMzobeNews(){
 		global $conn;
 		$url="https://newsapi.org/v2/top-headlines?country=za&apikey=e8a367febe384f5d8a1e3029f7d509fd";
